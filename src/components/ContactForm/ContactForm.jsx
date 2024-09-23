@@ -1,15 +1,19 @@
 import styles from "./ContactForm.module.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { useDispatch } from "react-redux";
+import { addContact } from "../../redux/contactsSlice";
 
 const validationSchema = Yup.object({
   name: Yup.string().min(3).max(50).required(),
   number: Yup.string().required(),
 });
 
-export default function ContactForm({ addContact }) {
+export default function ContactForm() {
+  const dispatch = useDispatch();
+
   const handleSubmit = (values, { resetForm }) => {
-    addContact(values);
+    dispatch(addContact(values));
     resetForm();
   };
 
